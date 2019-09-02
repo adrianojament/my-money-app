@@ -10,17 +10,15 @@ import TabsHeader from '../common/tab/tabsHeader'
 import TabsContent from '../common/tab/tabsContent'
 import TabContent from '../common/tab/tabContent'
 import TabHeader from '../common/tab/tabHeader'
-import { selectTab, showTabs } from '../common/tab/tabActions'
 import BillingCycleList from './billingCycleList'
-import { create } from './billingCycleActions'
+import { init, create, update, remove } from './billingCycleActions'
 import Form from './billingCycleForm'
 
 
 class BillingCycle extends Component {
 
     componentWillMount(){
-        this.props.selectTab('tablist')
-        this.props.showTabs('tablist', 'tabCreate')
+        this.props.init()
     }
 
     render(){
@@ -40,13 +38,20 @@ class BillingCycle extends Component {
                                 <BillingCycleList/>
                             </TabContent>
                             <TabContent id='tabCreate'> 
-                                <Form onSubmit={this.props.create}/>
+                                <Form onSubmit={this.props.create} 
+                                    submitLabel ='Incluir'
+                                    submitClass='primary'/>
                             </TabContent>
                             <TabContent id='tabUpdate'> 
-                                <Form/>
+                                <Form onSubmit={this.props.update}
+                                submitLabel ='Alterar'
+                                submitClass='info'/>
                             </TabContent>
                             <TabContent id='tabDelete'> 
-                                <h1>Exclusao</h1>
+                                <Form onSubmit={this.props.remove} 
+                                submitLabel ='Excluir'
+                                submitClass='danger'
+                                readOnly={true}/>
                             </TabContent>
                         </TabsContent>                
                     </Tabs>
@@ -57,6 +62,6 @@ class BillingCycle extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({ 
-    selectTab, showTabs, create }
+    init, create, update, remove}
     , dispatch )
 export default connect( null, mapDispatchToProps)(BillingCycle)
