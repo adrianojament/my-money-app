@@ -12,7 +12,7 @@ export default props =>(
         <Header/>
         <SideBar/>
         <div className='content-wrapper'>
-            <Router/>
+            {props.children}
         </div>
         <Footer/>
         <Messages/>
